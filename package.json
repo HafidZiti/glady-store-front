@@ -1,6 +1,7 @@
 {
   "name": "glady-store-front",
   "version": "0.0.0",
+  "author": "hello@hafidziti.dev",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
