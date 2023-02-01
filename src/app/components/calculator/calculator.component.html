@@ -1,0 +1,44 @@
+<div class="calculator-container">
+  <form class="form-container" [formGroup]="shopForm" (ngSubmit)="onSubmit()">
+    <input
+      id="amount-input"
+      class="amount-input"
+      type="number"
+      placeholder="Enter your amount"
+      formControlName="amount"
+    />
+    <button type="submit" [disabled]="shopForm.invalid || isLoading">
+      Search
+    </button>
+  </form>
+  <div class="suggestion-container" *ngIf="higherSuggestion || lowerSuggestion">
+    <button
+      class="btn-suggest"
+      type="button"
+      [disabled]="!lowerSuggestion || lowerSuggestion === amount"
+      (click)="increase()"
+    >
+      -
+    </button>
+    <button
+      class="btn-suggest"
+      type="button"
+      [disabled]="!higherSuggestion || amount === higherSuggestion"
+      (click)="decrease()"
+    >
+      +
+    </button>
+  </div>
+  <div class="cards-container">
+    <p *ngIf="cards.length !== 0">
+      Your amount is composed of the following cards:
+    </p>
+    <p *ngIf="lowerSuggestion || higherSuggestion">
+      Sorry, we couldn't find a combination for your amount, please select
+      another one.
+    </p>
+    <span class="card" *ngFor="let card of cards; trackBy: trackByFn">
+      {{ card }}
+    </span>
+  </div>
+</div>

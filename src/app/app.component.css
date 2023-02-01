@@ -1,0 +1,15 @@
+header {
+  padding: 15px;
+  color: white;
+  background-color: rgb(35, 37, 37);
+  font-family: fantasy;
+  font-size: x-large;
+}
+
+main {
+  min-height: 80vh;
+}
+
+footer {
+  text-align: center;
+}
