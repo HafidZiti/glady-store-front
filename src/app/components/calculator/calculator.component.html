@@ -16,7 +16,7 @@
       class="btn-suggest"
       type="button"
       [disabled]="!lowerSuggestion || lowerSuggestion === amount"
-      (click)="increase()"
+      (click)="decrease()"
     >
       -
     </button>
@@ -24,7 +24,7 @@
       class="btn-suggest"
       type="button"
       [disabled]="!higherSuggestion || amount === higherSuggestion"
-      (click)="decrease()"
+      (click)="increase()"
     >
       +
     </button>
