@@ -1,21 +1,33 @@
 <div class="calculator-container">
-  <form class="form-container" [formGroup]="shopForm" (ngSubmit)="onSubmit()">
+  <div class="form-container">
     <input
       id="amount-input"
       class="amount-input"
       type="number"
       placeholder="Enter your amount"
-      formControlName="amount"
+      min="0"
+      [disabled]="isDisabled"
+      [(ngModel)]="amount"
+      (ngModelChange)="handleValueChanges($event)"
     />
-    <button type="submit" [disabled]="shopForm.invalid || isLoading">
+    <!-- The 'search' button will be disabled while:
+         - the input is not valid, 
+         - the calculator form is disabled via reactive Form,
+         - fetching data
+         - the input's value hasn't been modified-->
+    <button
+      type="button"
+      (click)="onClick()"
+      [disabled]="!isValid || isDisabled || isLoading || !isModified"
+    >
       Search
     </button>
-  </form>
+  </div>
   <div class="suggestion-container">
     <button
       class="btn-suggest"
       type="button"
-      [disabled]="!lowerSuggestion || lowerSuggestion === amount"
+      [disabled]="!lowerAmount || lowerAmount === amount"
       (click)="decrease()"
     >
       -
@@ -23,7 +35,7 @@
     <button
       class="btn-suggest"
       type="button"
-      [disabled]="!higherSuggestion || amount === higherSuggestion"
+      [disabled]="!higherAmount || higherAmount === amount"
       (click)="increase()"
     >
       +
@@ -33,12 +45,12 @@
     <p *ngIf="cards.length !== 0">
       Your amount is composed of the following cards:
     </p>
-    <p *ngIf="lowerSuggestion || higherSuggestion">
+    <p *ngIf="lowerAmount || higherAmount">
       Sorry, we couldn't find a combination for your amount, please select
       another one.
     </p>
     <span class="card" *ngFor="let card of cards; trackBy: trackByFn">
-      {{ card }}
+      {{ card | cardFormat : "$" }}
     </span>
   </div>
 </div>

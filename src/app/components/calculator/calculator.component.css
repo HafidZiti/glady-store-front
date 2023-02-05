@@ -1,6 +1,5 @@
 .calculator-container {
-  text-align: center;
-  margin-top: 50px;
+  margin-top: 24px;
 }
 
 .form-container {
@@ -32,10 +31,6 @@
   font-family: fantasy;
   font-size: xxx-large;
   color: #007fc9;
-}
-
-.card::after {
-  content: "$";
 }
 
 p {
