@@ -23,7 +23,13 @@
       formControlName="calculator"
     >
     </app-calculator>
-    <button type="submit" class="btn-buy" [disabled]="isDisabled">Buy</button>
+    <button
+      type="submit"
+      class="btn-buy"
+      [disabled]="calculatorForm.invalid || isDisabled"
+    >
+      Buy
+    </button>
   </form>
 </main>
 <footer>Hafid © 2023</footer>

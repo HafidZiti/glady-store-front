@@ -91,6 +91,8 @@ export class CalculatorComponent implements ControlValueAccessor {
             this.higherAmount = combinations.ceil?.value ?? null;
             this.lowerAmount = combinations.floor?.value ?? null;
           }
+          // Notify the parent form that a new value is available
+          this.onChange({ value: this.amount!, cards: this.cards });
           this.cd.markForCheck();
         },
         error: (err) => {

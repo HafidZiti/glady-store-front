@@ -13,6 +13,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { CalculatorComponent } from './components/calculator/calculator.component';
+import { calculatorValidator } from './validators/calculator';
 
 @Component({
   selector: 'app-root',
@@ -32,7 +33,7 @@ export class AppComponent {
 
   private readonly initialValue: CalculatorComponentValue = {
     value: 42,
-    cards: [20, 22],
+    cards: [22, 20],
   };
 
   protected readonly shopsList = [1, 2, 3, 4, 5];
@@ -45,7 +46,10 @@ export class AppComponent {
   constructor(private readonly cd: ChangeDetectorRef) {
     this.calculatorForm = new FormGroup({
       shopSelect: new FormControl<number>(5, Validators.required),
-      calculator: new FormControl<CalculatorComponentValue>(this.initialValue),
+      calculator: new FormControl<CalculatorComponentValue>(this.initialValue, [
+        Validators.required,
+        calculatorValidator(),
+      ]),
     });
   }
 

@@ -35,6 +35,7 @@ Then you can play with it to test different cases
 - Rename same variables
 - Change detection strategy of the `AppComponent` to OnPush.
 - Some css changes
+- Add `calculatorValidator` as a validator for the calculator form, so we're able to disabled the `buy` button when the parent form is not valid e.g: cards is empty `{value:5, cards:[]}`
 
 ## Note
 
