@@ -1,11 +1,10 @@
 import {
+  Component,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalculatorComponentValue } from './model/calculatorComponentValue';
-import { Component } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -30,7 +29,7 @@ import { CalculatorComponent } from './components/calculator/calculator.componen
 })
 export class AppComponent {
   title = 'glady-store-front';
-  
+
   private readonly initialValue: CalculatorComponentValue = {
     value: 42,
     cards: [20, 22],
