@@ -1,3 +1,8 @@
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalculatorComponentValue } from './model/calculatorComponentValue';
 import { Component } from '@angular/core';
@@ -21,6 +26,7 @@ import { CalculatorComponent } from './components/calculator/calculator.componen
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   title = 'glady-store-front';
@@ -37,8 +43,7 @@ export class AppComponent {
 
   protected readonly calculatorForm;
 
-  constructor() {
-
+  constructor(private readonly cd: ChangeDetectorRef) {
     this.calculatorForm = new FormGroup({
       shopSelect: new FormControl<number>(5, Validators.required),
       calculator: new FormControl<CalculatorComponentValue>(this.initialValue),
@@ -57,6 +62,7 @@ export class AppComponent {
       this.calculatorForm.get('calculator')?.disable();
       this.isDisabled = true;
     }
+    this.cd.markForCheck();
   }
 
   protected onSubmit() {
