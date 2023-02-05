@@ -8,6 +8,25 @@ header {
 
 main {
   min-height: 80vh;
+  text-align: center;
+}
+
+.form-container {
+  margin-top: 36px;
+}
+
+.shop-select,
+.btn-buy {
+  height: 26px;
+}
+
+.btn-buy {
+  margin-top: 24px;
+  width: 130px;
+}
+
+.shop-select {
+  width: 200px;
 }
 
 footer {

@@ -1,11 +1,29 @@
 <header>Welcome to Glady store</header>
 <main>
-  <form [formGroup]="calculatorForm">
+  <form
+    class="form-container"
+    [formGroup]="calculatorForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <label for="shop-select">Choose a shop: </label>
+    <select
+      id="shop-select"
+      class="shop-select"
+      formControlName="shopSelect"
+      (change)="changeShop()"
+    >
+      <option value="">Please choose your shop</option>
+      <option *ngFor="let shop of shopsList" [ngValue]="shop">
+        {{ shop }}
+      </option>
+    </select>
     <app-calculator
+      [shopId]="selectedShop"
       (enteredAmount)="handleCalculatorEvent($event)"
       formControlName="calculator"
     >
     </app-calculator>
+    <button type="submit" class="btn-buy" [disabled]="isDisabled">Buy</button>
   </form>
 </main>
 <footer>Hafid © 2023</footer>

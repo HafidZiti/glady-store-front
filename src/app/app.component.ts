@@ -1,30 +1,69 @@
+import { CommonModule } from '@angular/common';
 import { CalculatorComponentValue } from './model/calculatorComponentValue';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CalculatorComponent } from './components/calculator/calculator.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CalculatorComponent, ReactiveFormsModule],
+  imports: [
+    CalculatorComponent,
+    FormsModule,
+    CommonModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'glady-store-front';
-
+  
   private readonly initialValue: CalculatorComponentValue = {
     value: 42,
     cards: [20, 22],
   };
 
-  protected readonly calculatorForm = new FormGroup({
-    calculator: new FormControl<CalculatorComponentValue>(this.initialValue),
-  });
+  protected readonly shopsList = [1, 2, 3, 4, 5];
+  protected readonly availableShop = 5;
 
-  constructor() {}
+  protected isDisabled = false;
+
+  protected readonly calculatorForm;
+
+  constructor() {
+
+    this.calculatorForm = new FormGroup({
+      shopSelect: new FormControl<number>(5, Validators.required),
+      calculator: new FormControl<CalculatorComponentValue>(this.initialValue),
+    });
+  }
 
   protected handleCalculatorEvent(amount: number) {
     console.log('The entered amount is:', amount);
+  }
+
+  protected changeShop() {
+    if (this.selectedShop === this.availableShop) {
+      this.calculatorForm.get('calculator')?.enable();
+      this.isDisabled = false;
+    } else {
+      this.calculatorForm.get('calculator')?.disable();
+      this.isDisabled = true;
+    }
+  }
+
+  protected onSubmit() {
+    console.log('Congrats! your purchase has been saved!');
+  }
+
+  get selectedShop(): number {
+    return this.calculatorForm.get('shopSelect')?.value as number;
   }
 }

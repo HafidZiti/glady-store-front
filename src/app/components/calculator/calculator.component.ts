@@ -4,6 +4,7 @@ import {
   Component,
   ChangeDetectorRef,
   Output,
+  Input,
   EventEmitter,
   forwardRef,
 } from '@angular/core';
@@ -36,6 +37,8 @@ import { CardFormatPipe } from '../../pipes/card-format.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CalculatorComponent implements ControlValueAccessor {
+  @Input()
+  shopId: number = 5;
   @Output()
   enteredAmount = new EventEmitter<number>();
 
@@ -70,23 +73,33 @@ export class CalculatorComponent implements ControlValueAccessor {
 
   public setDisabledState?(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
+    this.cd.markForCheck();
   }
 
   protected onClick(): void {
     if (!this.amount) return;
     this.isLoading = true;
     this.calculatorService
-      .searchCards(this.amount)
+      .searchCards(this.amount, this.shopId)
       .pipe(take(1))
-      .subscribe((combinations) => {
-        this.isLoading = false;
-        if (combinations.equal) {
-          this.cards = combinations.equal.cards;
-        } else {
-          this.higherAmount = combinations.ceil?.value ?? null;
-          this.lowerAmount = combinations.floor?.value ?? null;
-        }
-        this.cd.markForCheck();
+      .subscribe({
+        next: (combinations) => {
+          this.isLoading = false;
+          if (combinations.equal) {
+            this.cards = combinations.equal.cards;
+          } else {
+            this.higherAmount = combinations.ceil?.value ?? null;
+            this.lowerAmount = combinations.floor?.value ?? null;
+          }
+          this.cd.markForCheck();
+        },
+        error: (err) => {
+          this.isLoading = false;
+          // as I don't have an error handling service, I just log the error in the console.
+          // but normally I have to display this error to the user in the appropriate place, e.g: toast.
+          console.error(`I caught ${err.message}`);
+          this.cd.markForCheck();
+        },
       });
     this.reset();
     this.enteredAmount.emit(this.amount);
