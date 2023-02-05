@@ -1,16 +1,28 @@
 <div class="calculator-container">
-  <form class="form-container" [formGroup]="shopForm" (ngSubmit)="onSubmit()">
+  <div class="form-container">
     <input
       id="amount-input"
       class="amount-input"
       type="number"
       placeholder="Enter your amount"
-      formControlName="amount"
+      min="0"
+      [disabled]="isDisabled"
+      [(ngModel)]="amount"
+      (ngModelChange)="handleValueChanges($event)"
     />
-    <button type="submit" [disabled]="shopForm.invalid || isLoading">
+    <!-- The 'search' button will be disabled while:
+         - the input is not valid, 
+         - the calculator form is disabled via reactive Form,
+         - fetching data
+         - the input's value hasn't been modified-->
+    <button
+      type="button"
+      (click)="onClick()"
+      [disabled]="!isValid || isDisabled || isLoading || !isModified"
+    >
       Search
     </button>
-  </form>
+  </div>
   <div class="suggestion-container">
     <button
       class="btn-suggest"
@@ -23,7 +35,7 @@
     <button
       class="btn-suggest"
       type="button"
-      [disabled]="!higherSuggestion || amount === higherSuggestion"
+      [disabled]="!higherSuggestion || higherSuggestion === amount"
       (click)="increase()"
     >
       +
@@ -38,7 +50,7 @@
       another one.
     </p>
     <span class="card" *ngFor="let card of cards; trackBy: trackByFn">
-      {{ card }}
+      {{ card | cardFormat : "$" }}
     </span>
   </div>
 </div>

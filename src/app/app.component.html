@@ -1,7 +1,11 @@
 <header>Welcome to Glady store</header>
 <main>
-  <app-calculator
-    (enteredAmount)="handleCalculatorEvent($event)"
-  ></app-calculator>
+  <form [formGroup]="calculatorForm">
+    <app-calculator
+      (enteredAmount)="handleCalculatorEvent($event)"
+      formControlName="calculator"
+    >
+    </app-calculator>
+  </form>
 </main>
 <footer>Hafid © 2023</footer>
