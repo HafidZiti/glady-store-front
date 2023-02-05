@@ -27,7 +27,7 @@
     <button
       class="btn-suggest"
       type="button"
-      [disabled]="!lowerSuggestion || lowerSuggestion === amount"
+      [disabled]="!lowerAmount || lowerAmount === amount"
       (click)="decrease()"
     >
       -
@@ -35,7 +35,7 @@
     <button
       class="btn-suggest"
       type="button"
-      [disabled]="!higherSuggestion || higherSuggestion === amount"
+      [disabled]="!higherAmount || higherAmount === amount"
       (click)="increase()"
     >
       +
@@ -45,7 +45,7 @@
     <p *ngIf="cards.length !== 0">
       Your amount is composed of the following cards:
     </p>
-    <p *ngIf="lowerSuggestion || higherSuggestion">
+    <p *ngIf="lowerAmount || higherAmount">
       Sorry, we couldn't find a combination for your amount, please select
       another one.
     </p>

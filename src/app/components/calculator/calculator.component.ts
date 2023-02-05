@@ -41,8 +41,8 @@ export class CalculatorComponent implements ControlValueAccessor {
 
   private amountInput: Nullable<number> = null;
 
-  protected higherSuggestion: Nullable<number> = null;
-  protected lowerSuggestion: Nullable<number> = null;
+  protected higherAmount: Nullable<number> = null;
+  protected lowerAmount: Nullable<number> = null;
   protected cards: Array<number> = [];
   protected isLoading = false;
   protected isDisabled = false;
@@ -83,8 +83,8 @@ export class CalculatorComponent implements ControlValueAccessor {
         if (combinations.equal) {
           this.cards = combinations.equal.cards;
         } else {
-          this.higherSuggestion = combinations.ceil?.value ?? null;
-          this.lowerSuggestion = combinations.floor?.value ?? null;
+          this.higherAmount = combinations.ceil?.value ?? null;
+          this.lowerAmount = combinations.floor?.value ?? null;
         }
         this.cd.markForCheck();
       });
@@ -99,12 +99,12 @@ export class CalculatorComponent implements ControlValueAccessor {
 
   protected increase() {
     this.isModified = true;
-    this.amount = this.higherSuggestion;
+    this.amount = this.higherAmount;
   }
 
   protected decrease() {
     this.isModified = true;
-    this.amount = this.lowerSuggestion;
+    this.amount = this.lowerAmount;
   }
 
   protected trackByFn(index: number): number {
@@ -117,8 +117,8 @@ export class CalculatorComponent implements ControlValueAccessor {
 
   private reset(): void {
     this.cards = [];
-    this.lowerSuggestion = null;
-    this.higherSuggestion = null;
+    this.lowerAmount = null;
+    this.higherAmount = null;
     this.isModified = false;
   }
 
